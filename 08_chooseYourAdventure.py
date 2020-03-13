@@ -26,7 +26,7 @@ stage3part2 = True
 # --- SUBROUTINES --- #
 def intro():
     print("""
-Welcome to Escape your Fate! In this choose your adventure game, you will be given various choices, each of them a deciding factor in if you 
+Welcome to Escape your Fate! In this choose your adventure game, you will be given various choices. Each of them a deciding factor in if you 
 will be able to change your fate. You will have three lives and 100 coins to spend on objects that will help you on your journey. Choose 
 accordingly and you might be able to survive! 
 ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,8 +44,8 @@ def stage2part1():
     global stage2
 <<<<<<< HEAD
     print("""
-You walk around the room on the furthest right are two doors. You see two doors. You try the handles they don't open. On the left side
-of the door you see a scanner. You decide to search in the two most obvious places first: the shelf, the desk, the file cabinet, and
+You walk around the room seeing that on the furthest right are two doors. You try the handles they don't open. On the left side
+of the door you see a scanner. You try to find a key card. You decide to search in the two most obvious places first: the shelf, the desk, the file cabinet, and
 the bookshelf. Which place do you search first? Each time you guess wrong, you loose a life. 
     - Press s/S to search the shelf with the containers. 
     - Press d/D to search the desk.
@@ -95,7 +95,7 @@ you decide to enter: 213 or 215
     choice4 = int(input("Enter in the number 213 to enter it. Enter in the number 215 to enter the other room. "))
     if choice4 == 213:
         print("""
-when you walk into the room, you see people in lab coats, discussing at an table. They see you and grab your arm.
+When you walk into the room, you see people in lab coats, discussing at an table. They see you and grab your arm.
 Suddenly, your vision goes black. 
         """)
         lives = lives - 1
@@ -105,7 +105,7 @@ Suddenly, your vision goes black.
         stage3part2 = False
 =======
     print("""
-You walk around the room on the furthest right are two doors. You see two doors. You try the handles they don't open. On the left side
+You walk around the room you see on the furthest right are two doors. You try the handles they don't open. On the left side
 of the door you see a scanner. You decide to search in the two most obvious places first: the shelf, the desk, the file cabinet, and
 the bookshelf. Which place do you search first? Each time you guess wrong, you loose a life. 
     - Press s/S to search the shelf with the containers. 
