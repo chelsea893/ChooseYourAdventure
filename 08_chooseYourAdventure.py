@@ -15,20 +15,23 @@ stage1 = True
 stage2 = True
 stage3part2 = False
 stage3part3 = True
-again = True
 stage4part2 = True
+again = True
 score = 0
+stage3 = False
 
 # --- SUBROUTINES --- #
 def intro():
     print("""
 Welcome to Escape your Fate! In this choose your adventure game, you will be given various choices, each of them a deciding factor in if you 
-will be able to change your fate. You will have three lives and 80 coins to spend on objects that will help you on your journey. Every stage
+will be able to change your fate. You will have three lives and 80 coins to spend on things that will help you on your journey. Every stage
 you pass you will be able to gain 5 points for your final score. Choose accordingly and you might be able to survive! 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 STAGE 1
 ------------------------------------------------------------------------------------------------------------------------------------------------
     """)
+
+# file for stage 4
 def file():
     global choice4
     global file
@@ -41,6 +44,7 @@ def file():
     else:
         if file == "n" or file == "N":
             pass
+#Stage 1
 def stage1():
     global lives
     global coins
@@ -54,7 +58,7 @@ What four numbers do you input?
             """)
 
     while stage1 and lives > 0:
-        # ask for hint
+        # ask for hint (input)
         hint1 = input("Press y/N for a hint. It will cost ten coins.")
         if hint1 == "y" or hint1 == "Y":
             print( "Observe the pattern of the steady beating. Count the beats to find a combination. Remember there are four numbers and four beats."
@@ -64,6 +68,7 @@ What four numbers do you input?
             pass
         # check combination
         combination = int(input("Enter your combination here: "))
+        #processing
         if combination == 1121: #input 1121 to move on
             print("Your right hand comes loose")
             print("coins= %s" % coins)
@@ -78,15 +83,17 @@ What four numbers do you input?
             print( "The alarm sounds, causing people to rush into the room to restrain you. You have been caught. GAME OVER")
             print("You have been able to score %s points" % score)
             sys.exit()
+#Stage 2
 def stage2part1():
     global keyCard
+    global stage3
     print("""
 ------------------------------------------------------------------------------------------------------------------------------------------------
 STAGE 2
 ----------------------------------------------------------------------------------------------------------------------------------------
 As you get up, you rip the wires from your head. All of sudden you feel dizzy and have a terriable headache. Everything around you is
-blurry the only thing you can make out are two containers, on the shelf. The red one says that it will get rid of your headache
-but lead to side effects of confusion. The other one doesn't have a label; however, it is still on the shelf labelled pain-killers. 
+blurry. The only thing you can make out are two containers on the shelf. The red one says that it will get rid of your headache
+but will lead to side effects of confusion. The other one doesn't have a label; however, it is still on the shelf labelled pain-killers. 
 Which one do you take? 
               _________                       _________
              {_________}                     {_________}       
@@ -111,6 +118,7 @@ Which one do you take?
         stage2part2()
     elif choice == "b" or choice == "B":
         blue = 1
+        stage3 = True
         print("""
 Your headache is completely alleviated. Behind the container, you find a key card:
      ____________________
@@ -131,9 +139,11 @@ def stage2part2():
     global lives
     global keyCard
     global stage2
+    global stage3
     # finding key card
+# if chose the red container
     print("""
-You walk around the room on the furthest right are two doors. You see two doors. You try the handles they don't open. On the left side
+You walk around the room and on the furthest right are two doors. You try the handles. They don't open. On the left side
 of the door you see a scanner. You decide to search in the two most obvious places first: the shelf, the desk, the file cabinet, and
 the bookshelf. Which place do you search first? Each time you guess wrong, you loose a life. 
     - Press s/S to search the shelf with the containers. 
@@ -163,6 +173,7 @@ You move the container over on the shelf and find a key card:
             """)
             keyCard = 1
             stage2 = False
+            stage3 = True
         else:
             print("It is not there. Try searching in another place")
             lives = lives - 1
@@ -174,10 +185,11 @@ Your heart races, you begin to have a panic attack because nothing you are doing
 the ground with a thud. People start to rush around you. GAME OVER
               """)
         sys.exit()
-
+#Stage 3
 def stage3part1():
     global stage2
-    print("""
+    if stage3:
+        print("""
 ----------------------------------------------------------------------------------------------------------------------------------------
 STAGE 3
 ------------------------------------------------------------------------------------------------------------------------------------------
@@ -200,25 +212,43 @@ There are two doors that can be accessed by the key card:
 |_|___________|_|        |_|___________|_|
 
         """)
-    #here is where extra information is
+    #here is where extra information and subroutines for stage 3 start
 def stage3part2():
     global choice4
     global stage3part3
     global lives
     global score
     print("""
-Down the hall you see someone. You inspect the surrondings thinking that it is clear and begin to walk down the hall. Suddenly, you
-hear footsteps behind you. You decide to rush into a room to escape them you can either enter room 213 or 215. 
+Down the hall you see someone. You inspect the surroundings thinking that it is clear and begin to walk down the hall. Suddenly, you
+hear footsteps behind you. You decide to rush into a room to escape them. You can either enter room 213 or 215:
+
+     ______________                  ______________
+    |\ ___________ /|               |\ ___________ /|
+    | |  _ _ _ _  | |               | |  _ _ _ _  | |
+    | | | | | | | | |               | | | | | | | | |
+    | | |-+-+-+-| | |               | | |-+-+-+-| | |
+    | | |-+-+=+%| | |   213         | | |-+-+=+%| | |    215
+    | | |_|_|_|_| | |               | | |_|_|_|_| | |
+    | |    ___    | |               | |    ___    | |
+    | |   [___] ()| |               | |   [___] ()| |
+    | |         ||| |               | |         ||| |
+    | |         ()| |               | |         ()| |
+    | |           | |               | |           | |
+    | |           | |               | |           | |
+    | |           | |               | |           | |
+    |_|___________|_|               |_|___________|_| 
         """)
     # choosing rooms
-    choice4 = int(input("To enter 213, press 213. To enter 215, press 215"))
+    #choosing 213
+    choice4 = int(input("To enter room 213, press 213. To enter room 215, press 215"))
     if choice4 == 213:
         print("""
-When you walk into the room you see people in lab coats, disscussing at an table. They see you and grab your arm. Suddenly your vision
+When you walk into the room you see people in lab coats discussing at an table. They see you and grab your arm. Suddenly, your vision
 goes black 
         """)
         lives = lives - 1
-        print("You have lost a life this is how many you have left %s" % lives)
+        print("You have lost a life. This is how many you have left %s" % lives)
+#Stage 4
 def stage4part1():
     global stage3part3
     global choice5
@@ -229,13 +259,25 @@ STAGE 4
             """)
     stage3part3 = False
     print(""" 
-You enter a room and around you see people on beds hooked up to the same machines you were connected to. 
+You enter a room and around you are people on beds hooked up to the same machines you were connected to. 
 Again you see the words "Experiment 3025 -human brain simulator". In the corner, you see a small child on a bed who is 
-trembling in fear as their eyes search the celing as though disconnected from reality. Suddenly, you resonate
+trembling in fear as their eyes search the celling as though disconnected from reality. Suddenly, you resonate
 with that hopelessness as you remember how scared you felt when you woke up. You begin to debate whether or not to wake up the child. 
-You walk closer and they look pale. Around their wrist is a metal band with a combination.
+You walk closer and they look pale. Around their wrist is a metal band with a combination:
+
+          ()- _ `._.--.
+        ((0_. (  )  )  \_    _.-.-._
+     -- ((0   .' /  (\   \`--'  _)--=' ------ .
+   '       -' _ - ._)_\   \.-.-._.             .
+  '    ''`````\        \  .  _)--='             .
+ '-----------\/'-. ---- `--"'-------------------.
+|             |\\                                |
+|                                                |
+ `----------------------------------------a:f---'
+        [_]                               [_]
             """)
-    choice5 = str(input( "Press y or Y to release them from the machine and save them from their nightmare. Press n or N to leave them as you fear they might scream or alert the officials: "))
+    choice5 = str(input( "Press y/Y to release them from the machine and save them from their nightmare. Press n/N to leave them as you fear they might scream or alert the officials: "))
+#stage 4 and 5 version 1
 def stage4part2():
     global score
     global coins
@@ -248,7 +290,7 @@ def stage4part2():
         print("Enter the combo you found earlier in the map. If you did not find this combo, you may purchase a hint for 30 coins.")
         hint = str(input("Press y/N to buy the hint"))
         if hint == "y" or hint == "Y":
-            print("Remember the expirement name")
+            print("Remember the experiment name")
             coins = coins - 30
             print("You have this many coins left: %s" % coins)
         else:
@@ -257,9 +299,9 @@ def stage4part2():
     # combo is 3025
         if combo == 3025:
             print("""
-The child is released. You pull the equipment from their head. Their eyes slowly gain conciouness of reality
-a shocked expression across their face that soon shifts to worry. They tell you have to leave right now, explaining how
-if they find you they will leave to a fate worse than death and that they are always watching. All of a sudden, you hear a sound.
+The child is released. You pull the equipment from their head. Their eyes slowly gain consciousness of reality.
+A shocked expression spreads across their face and it soon shifts to worry. They tell you have to leave right now, explaining how
+if they find you it will lead to a fate worse than death. All of a sudden, you hear a sound.
                         """)
             stage4part2 = False
             print("lives = %s" % lives)
@@ -275,7 +317,19 @@ STAGE 5
         """)
     while lives > 0 and again:
         #finding place to hide
-        print(" You search for a place to hide. You spot 2 different places. Under one of the beds or behind the shelf.")
+        print("""
+You search for a place to hide. You spot 2 different places. Under one of the beds or behind the shelf.
+                                        _____________
+                                       /____________/|
+_____ /|________/| ____________________|     o     | |_______________________________________________
+     // /      //|                     |___________| |
+    |/_/______|//!                     |           | |
+    |_________|/                       |     o     | |
+    !         !                        |___________|/
+    
+_______________________________________________________________________________________________________
+""")
+
         choice10 = str(input("Press b/B to hide under the bed. Press s/S to hide behind the shelf"))
         if choice10 == "b" or choice10 == "B":
             print("You run under the bed. Someone enters the room. You wait under the bed until you hear their footsteps subside. ")
@@ -285,19 +339,20 @@ STAGE 5
             if choice10 == "s" or choice10 == "S":
                 print("""
 You run to hide behind the shelf. A person enters the room checking on the people on the beds. They begin to near the shelf you
-hide behind. They spot you and you try to get away but it is useless as they grab you and drag you away
+hide behind. They spot you and you try to get away, but it is useless as they grab you and drag you away.
                     """)
                 lives = lives - 1
                 print("You have lost a life. You have this many left %s" %lives)
     if (choice10 == "s" or choice10 == "S") and again and lives < 0:
             print("GAMEOVER")
             sys.exit()
+#ending of stage 5 version 2
     if lives > 0:
         print("""
-    When they finally leave, you get up and ask the child to leave with you. They reluctantly agree. You guys wait 20 seconds
-    before exiting the room. When you guys walk down the hallway, you guys are able to find a stairway. You walk down the stairway to 
-    find a door: 
-    ______________
+When they finally leave, you get up and ask the child to leave with you. They reluctantly agree. You guys wait 20 seconds
+before exiting the room. When you guys walk down the hallway, you guys are able to find a stairway. You walk down the stairway and 
+find a door: 
+     ______________
     |\ ___________ /|
     | |  _ _ _ _  | |
     | | | | | | | | |
@@ -314,29 +369,31 @@ hide behind. They spot you and you try to get away but it is useless as they gra
     | |           | |
     |_|___________|_| 
         """)
-        print("Behind the door, you find a button. ")
-        print("""
-           __-------------------__
-         _/                        \_
-        /                            |
-       /        PRESS TO RETURN       |
-       |          TO REALITY          |
-       |                              |
-         \_                         /
-           \______________________/
-           
-        """)
-        choice12 = str(input("Press Y/y to return to reality"))
-        # first ending
-        if choice12 == "Y" or choice12 == "y":
+        enter = input("Press enter to open the door:")
+        if enter == "":
+            print("Behind the door, you find a button. ")
             print("""
-    You press the button and suddenly everything goes black. When you open your eyes, you see you are surronded by people
-    in white lab coats. Beside you is a lady writing information down on a clipboard, her mouth forms the words:
-    "Congratulations, you have successfully completed the expirement and helped out others even if there was a risk" 
+               __-------------------__
+             _/                        \_
+            /                            |
+           /        PRESS TO RETURN       |
+           |          TO REALITY          |
+           |                              |
+             \_                         /
+               \______________________/
+               
             """)
-            score = score + 5
+            choice12 = str(input("Press Y/y to return to reality"))
+            if choice12 == "Y" or choice12 == "y":
+                print("""
+You press the button and suddenly everything goes black. When you open your eyes, you see you are surrounded by people
+in white lab coats. Beside you is a lady writing information down on a clipboard, her mouth forms the words:
+        
+        "Congratulations, you have successfully completed the experiment and helped out others even if there was a risk" 
+        
+                """)
 
-
+#Stage 5 version 2
 def stage5part1():
     global lives
     global coins
@@ -376,7 +433,7 @@ A person walks into the room heading towards the computer. They pull up an image
     """)
     print("""
 They leave the room. You decide wait 20 seconds. When you can hear no sounds, you sneak out. You look around remember the exits you saw
-in the map. Which exit do you take press W for window and press S for stairs.
+on the map. Which exit do you take press W for window and press S for stairs.
           """)
 def stage5part2():
     global score
@@ -388,20 +445,22 @@ Do you jump or do you take your chances and turn around and try to fight with th
     #choose action
     while lives > 0:
         choice8 = int(input("Press 1 to jump and 2 to fight: "))
-        #second ending
+        #Stage 5 version 2 ending (winning)
         if choice8 == 1:
             print("""
 You wake up. You hear beeping all around you as you wake up a deep chilling feeling in your belly. You see people
 writing on clipboards around you. A person in a white coat smiles her mouth forming the words:
+
      "Welcome Back, you have successful completed the expirement. You have shown a sense of fearlessness into entering the unknown " """)
+
             print("Congratulations you have finished the game! ")
             score = score + 5
             break
-        #third ending
+        # Stage 5 version 2 ending- attack (loosing)
         if choice8 == 2:
             print("""
 You grab the scalpel and swing it in front of you. It punctures the person approaching in a white lab coat
-however it doesn't keep them grabbing you and injecting something in your neck. You vision goes black
+however it doesn't keep them grabbing you and injecting something in your neck. You vision goes black.
             """)
             lives = lives - 1
         if lives > 0:
@@ -450,8 +509,8 @@ You open the door. In front of you is the same child you left behind in the othe
     |                                                     |
     |                                                     |
     |                                                     |
-    |          FINAL STAGE OF EXPIREMENT 3025             |
-    |  You have a choice sacrfice yourself or the child   |
+    |          FINAL STAGE OF EXPERIMENT 3025             |
+    |  You have a choice sacrifice yourself or the child  |
     |                  Choose Wisely                      |
     |                                                     |
     |                                                     |
@@ -459,27 +518,29 @@ You open the door. In front of you is the same child you left behind in the othe
     |                                                     |
     |_____________________________________________________|
           """)
-    print("In your hands, you have the item you picked up earlier. Do you sacrifice yourself or the child?")
+    print("In your hands, you have the item you picked up earlier. Do you sacrifice yourself or the child? Your lives here no longer apply")
     while lives > 0:
-        choice9 = int(input("Press 1 to sacifice yourself. Press 2 to sacrifice the child"))
-        #fourth ending
+        choice9 = int(input("Press 1 to sacrifice yourself. Press 2 to sacrifice the child"))
+        #Stage 5 version 2 ending (winning)
         if choice9 == 1:
             print("""
 You pierce your skin. Suddenly everything goes black. When you open your eyes, you see that you are on a bed. Around you are people
 dressed in white coats taking notes. Beside you, you see a women smiling as her mouth forms the words.
+
             "Congratulations you have successful completed the experiment. You have been able to demonstrate virtues of selflessness
             and intelligence" 
+            
 You have finished the game 
             """)
             score = score + 5
             break
-        #fifth ending
+        # Stage 5 version 2 ending-sacrifice (losing)
         elif choice9 == 2:
             print("""
 You decide to sacrifice the child. Suddenly your vision goes black. When you open your eyes, you see that you are in bed. Around you 
-are people dressed in white coats with disapproving looks on their faces. Beside you, you see a women with tightlipped frown as she 
+are people dressed in white coats with disapproving looks on their faces. Beside you, you see a women with tight lipped frown as she 
 sighs. She grabs a syringe from beside her and injects it into you. Before you can process, it has entered your system. You feel faint
-as your eyes close once again. 
+as your eyes close once again. You have failed the experiment 
             """)
             break
             sys.exit
@@ -492,7 +553,7 @@ as your eyes close once again.
 value = input("Press the enter key if you dare!")
 #more inputs within subroutines
 
-# --- Processing --- #
+# --- PROCESSING / OUTPUTS --- #
 """
 solution: to get past stage 1 the combination is 1121
 solution: to get past stage 2 if you chose the red container choose to search the shelf
@@ -509,8 +570,8 @@ intro()
 # Stage 1
 start1 = input("Press Enter to start stage 1:")
 if start1 == "":
-    stage1()
     score = score + 5
+    stage1()
 else:
     sys.exit()
 
@@ -524,15 +585,12 @@ if start2 == "":
     print("score = %s" % score)
 else:
     sys.exit()
-start3 = input("Press Enter to start stage 3:")
 
 # Stage 3
-if start3 == "":
-    score = score + 5
+if stage3 == True:
     stage3part1()
-else:
-    sys.exit()
-#STAGE3
+    score = score + 5
+
 #stage3 use of specific subroutine * put a comment where this would fit in
 if keyCard == 1:
     choice3 = str(input("Press l/L to go through the door to the left. Press r/R to go through the door to the right"))
@@ -541,15 +599,16 @@ if keyCard == 1:
         stage3part3 = True
     else:
         pass
-# STAGE 3 AND STAGE 5 use of specific subroutines
+# STAGE 3, STAGE 4, and STAGE 5 use of specific subroutines
 while stage3part3 and lives > 0:
     stage3part2()
     # Enter 215 to move on
     if choice4 == 215:
-        score = score + 5
         print("lives = %s" % lives)
         print("coins = %s" % coins)
         print("score = %s" % score)
+        score = score + 5
+    #Stage 4
         stage4part1()
         if choice5 == "y" or choice5 == "Y":
             stage4part2()
@@ -558,6 +617,7 @@ while stage3part3 and lives > 0:
             print("coins = %s" % coins)
             print("score = %s" % score)
         else:
+    #Stage5
             stage5part1()
             choice7 = str(input())
             if choice7 == "W" or choice7 == "w":
@@ -567,6 +627,5 @@ while stage3part3 and lives > 0:
 
 
 
-# --- OUTPUTS --- #
 print("You have been able to score %s points" %score)
-#more outputs within subroutine
+#more outputs and processing within subroutine
